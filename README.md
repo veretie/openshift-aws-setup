@@ -1,1 +1,1 @@
-"# openshift-aws-setup" 
+# openshift-aws-setup
