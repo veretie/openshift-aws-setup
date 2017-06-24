@@ -1,6 +1,15 @@
 ---
 
 - name: Install Openshift
-  hosts: OSEv3
+
+  hosts: local
+
   roles:
-  - provision aws
+  - provision-aws
+
+  post_tasks:
+
+   - name: test
+     debug:
+      msg: '{{ alfa }}'
+
