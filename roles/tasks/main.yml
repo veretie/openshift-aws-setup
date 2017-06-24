@@ -1,0 +1,5 @@
+---
+
+- name: provision aws
+  debug:
+    msg: 'Testing aws provisioning.'

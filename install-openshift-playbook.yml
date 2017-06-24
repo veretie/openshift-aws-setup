@@ -1,0 +1,6 @@
+---
+
+- name: Install Openshift
+  hosts: OSEv3
+  roles:
+  - provision aws
