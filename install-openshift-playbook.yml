@@ -7,9 +7,8 @@
   roles:
   - provision-aws
 
-  post_tasks:
-
-   - name: test
-     debug:
-      msg: '{{ alfa }}'
+#  post_tasks:
+#   - name: test
+#     debug:
+#      msg: 'post task 01'
 
