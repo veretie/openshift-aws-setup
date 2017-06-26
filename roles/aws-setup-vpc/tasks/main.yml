@@ -14,7 +14,7 @@
 
 - name: print VPC ID
   debug:
-    msg: "Created VPC with ID: {{ vpc_facts['vpcs'][0]['id'] }}"
+    msg: "Created VPC with ID: {{ vpc_facts.vpcs[0].id }}"
 
 - name: Provision internet gateway
   ec2_vpc_igw:
