@@ -5,7 +5,7 @@
   hosts: local
 
   vars_files:
-    - /vars/aws-credentials.yml
+    - /vars/aws-credentials
     - /vars/aws-variables.yml
 
   roles:
