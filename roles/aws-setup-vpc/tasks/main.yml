@@ -12,20 +12,15 @@
     region: "{{ region }}"
   register: vpc_facts
 
-#- name: Get VPC ID
-#  ec2_vpc_net_facts:
-#    ec2_access_key: "{{ ec2_access_key }}"
-#    ec2_secret_key: "{{ ec2_secret_key }}"
-#    region: "{{ region }}"
-#    filters:
-#      "tag:Name": "{{namespace}}-vpc"
-
-
-- name: VPC ID
+- name: print VPC ID
   debug:
-    var: vpc_facts
+    msg: "Created VPC with ID: {{ vpc_facts['vpcs'][0]['id'] }}"
 
-
+- name: Provision internet gateway
+  ec2_vpc_igw:
+    vpc_id: "{{vpc_facts['vpcs'][0]['id']}}"
+    state: present
+  register: igw_facts
 
 
 
