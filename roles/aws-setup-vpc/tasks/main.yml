@@ -1,11 +1,13 @@
 ---
 
-  - ec2_vpc:
+  - name: Provision VPC
+    ec2_vpc_net:
       ec2_access_key: "{{ ec2_access_key }}"
       ec2_secret_key: "{{ ec2_secret_key }}"
       state: "present"
-      cidr_block: "{{ 10.0.0.0/16 }}"
-      resource_tags: { "{{namespace}}-vpc" : "{{}}" }
+      cidr_block: "{{ vpc_cidr }}"
+      tags:
+        mits4u: "{{namespace}}-vpc"
       region: "{{ region }}"
 
 # - name: Provision gateway [access to internet]
