@@ -5,8 +5,8 @@
   hosts: local
 
   vars_files:
-    - /vars/aws-credentials
-    - /vars/aws-config.yml
+    - vars/aws-credentials
+    - vars/aws-config.yml
 
   roles:
   - aws-setup-vpc
