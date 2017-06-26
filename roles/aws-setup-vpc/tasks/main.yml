@@ -18,6 +18,7 @@
     region: "{{ region }}"
     filters:
       "tag:Name": "{{namespace}}-vpc"
+  register: vpc_facts
 
 - name: VPC ID
   debug:
