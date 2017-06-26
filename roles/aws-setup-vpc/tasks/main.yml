@@ -4,6 +4,7 @@
     ec2_vpc_net:
       ec2_access_key: "{{ ec2_access_key }}"
       ec2_secret_key: "{{ ec2_secret_key }}"
+      name: "{{namespace}}-vpc"
       state: "present"
       cidr_block: "{{ vpc_cidr }}"
       tags:
