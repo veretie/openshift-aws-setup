@@ -14,13 +14,19 @@
 
 - name: print VPC ID
   debug:
-    msg: "Created VPC with ID: {{ vpc_facts.vpcs[0].id }}"
+    msg: "Created VPC with ID: {{vpc_facts['vpc']['id']}}"
 
 - name: Provision internet gateway
   ec2_vpc_igw:
-    vpc_id: "{{vpc_facts['vpcs'][0]['id']}}"
-    state: present
+    ec2_access_key: "{{ ec2_access_key }}"
+    ec2_secret_key: "{{ ec2_secret_key }}"
+    vpc_id: "{{vpc_facts['vpc']['id']}}"
+    region: "{{ region }}" 
   register: igw_facts
+
+- name: print internet gateway ID
+  debug:
+    msg: "Created internet gateway with ID: {{igw_facts['gateway_id']}}"
 
 
 
