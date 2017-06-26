@@ -6,7 +6,7 @@
 
   vars_files:
     - /vars/aws-credentials
-    - /vars/aws-variables.yml
+    - /vars/aws-config.yml
 
   roles:
   - aws-setup-vpc
