@@ -4,11 +4,15 @@
 
   hosts: local
 
-  roles:
-  - provision-aws
+  vars_files:
+    - /vars/aws-credentials.yml
+    - /vars/aws-variables.yml
 
-#  post_tasks:
-#   - name: test
-#     debug:
-#      msg: 'post task 01'
+  roles:
+  - aws-setup-vpc
+
+  post_tasks:
+   - name: test
+     debug:
+      msg: ' {{ region }}'
 

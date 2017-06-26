@@ -1,0 +1,35 @@
+---
+   - name: test
+     debug:
+      msg: ' {{ region }}'
+
+
+#
+#  - ec2_vpc:
+#      ec2_access_key: "{{ ec2_access_key }}"
+#      ec2_secret_key: "{{ ec2_secret_key }}"
+#
+#      state: present
+#      cidr_block: 172.23.0.0/16
+#      resource_tags: { "Environment":"Development" }
+#      region: us-west-2
+#
+# - name: Provision gateway [access to internet]
+#   ec2:
+#      ec2_access_key: "{{ ec2_access_key }}"
+#      ec2_secret_key: "{{ ec2_secret_key }}"
+##        key_name: my_key
+##        group: test
+#      instance_type: t2.micro
+#      image: "ami-b9353fdd"
+#      region: "eu-central-1"
+#      wait: true
+#      exact_count: 1
+#      count_tag:
+#          Name: Demo
+#      instance_tags:
+#         Name: Demo
+#   register: ec2
+#
+#
+#
