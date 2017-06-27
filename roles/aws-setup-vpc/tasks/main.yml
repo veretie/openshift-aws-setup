@@ -6,7 +6,7 @@
     cidr_block: "{{ vpc_cidr }}"
     tags:
       Name: "{{namespace}}-vpc"
-      mits4u: "{{namespace}}-vpc"
+      mits4u: "{{namespace}}"
     region: "{{ region }}"
     state: "present"
   register: vpc_facts
@@ -33,7 +33,7 @@
     cidr: "{{subnet_cidr}}"
     tags:
       Name: "{{namespace}}-subnet"
-      mits4u: "{{namespace}}-subnet"
+      mits4u: "{{namespace}}"
     region: "{{ region }}"
     state: "present"
   register: subnet_facts
@@ -47,7 +47,7 @@
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     tags:
       Name: "{{namespace}}-route"
-      mits4u: "{{namespace}}-route"
+      mits4u: "{{namespace}}"
     subnets:
       - "{{subnet_facts['subnet']['id']}}"
     routes:
@@ -57,31 +57,6 @@
     state: "present"
   register: route_facts
 
-
 - name: print route details
   debug:
-    var: "route_facts"
-
-#    ec2_access_key: "{{ ec2_access_key }}"
-#    ec2_secret_key: "{{ ec2_secret_key }}"
-
-
-# - name: Provision gateway [access to internet]
-#   ec2:
-#      ec2_access_key: "{{ ec2_access_key }}"
-#      ec2_secret_key: "{{ ec2_secret_key }}"
-##        key_name: my_key
-##        group: test
-#      instance_type: t2.micro
-#      image: "ami-b9353fdd"
-#      region: "eu-central-1"
-#      wait: true
-#      exact_count: 1
-#      count_tag:
-#          Name: Demo
-#      instance_tags:
-#         Name: Demo
-#   register: ec2
-#
-#
-#
+    msg: "Create route eith ID: {{route_facts['route_table']['id']}}"
