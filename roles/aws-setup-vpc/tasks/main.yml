@@ -2,8 +2,6 @@
 
 - name: Provision VPC
   ec2_vpc_net:
-    ec2_access_key: "{{ ec2_access_key }}"
-    ec2_secret_key: "{{ ec2_secret_key }}"
     name: "{{namespace}}-vpc"
     cidr_block: "{{ vpc_cidr }}"
     tags:
@@ -19,8 +17,6 @@
 
 - name: Provision internet gateway
   ec2_vpc_igw:
-    ec2_access_key: "{{ ec2_access_key }}"
-    ec2_secret_key: "{{ ec2_secret_key }}"
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     region: "{{ region }}"
     state: "present"
@@ -32,8 +28,6 @@
 
 - name: Provision subnet
   ec2_vpc_subnet:
-    ec2_access_key: "{{ ec2_access_key }}"
-    ec2_secret_key: "{{ ec2_secret_key }}"
     state: present
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     cidr: "{{subnet_cidr}}"
@@ -50,8 +44,6 @@
 
 - name: Set up public subnet route table
   ec2_vpc_route_table:
-    ec2_access_key: "{{ ec2_access_key }}"
-    ec2_secret_key: "{{ ec2_secret_key }}"
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     tags:
       Name: "{{namespace}}-route"
@@ -69,6 +61,10 @@
 - name: print route details
   debug:
     var: "route_facts"
+
+#    ec2_access_key: "{{ ec2_access_key }}"
+#    ec2_secret_key: "{{ ec2_secret_key }}"
+
 
 # - name: Provision gateway [access to internet]
 #   ec2:
