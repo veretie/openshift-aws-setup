@@ -8,8 +8,8 @@
     - vars/aws-credentials
     - vars/aws-config.yml
 
-    vars:
-      state: 'present'
+  vars:
+    state: 'present'
 
   environment:
     AWS_ACCESS_KEY_ID: "{{ ec2_access_key }}"
