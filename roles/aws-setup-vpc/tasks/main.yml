@@ -28,7 +28,6 @@
 
 - name: Provision subnet
   ec2_vpc_subnet:
-    state: {{ state }}
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     cidr: "{{subnet_cidr}}"
     tags:
