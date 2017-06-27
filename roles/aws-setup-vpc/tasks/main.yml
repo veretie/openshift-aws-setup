@@ -42,8 +42,11 @@
       mits4u: "{{namespace}}-subnet"
     region: "{{ region }}"
     state: "present"
-  register: subnet
+  register: subnet_facts
 
+- name: print subnet details
+  debug:
+    var: "subnet_facts"
 
 # - name: Provision gateway [access to internet]
 #   ec2:
