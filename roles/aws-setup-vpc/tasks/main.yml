@@ -46,7 +46,27 @@
 
 - name: print subnet details
   debug:
-    var: "subnet_facts"
+    msg: "Created subnet with ID: {{subnet_facts['subnet']['id']}}"
+
+- name: Set up public subnet route table
+  ec2_vpc_route_table:
+    vpc_id: "{{vpc_facts['vpc']['id']}}"
+    tags:
+      Name: "{{namespace}}-route"
+      mits4u: "{{namespace}}-route"
+    subnets:
+      - "{{subnet_facts['subnet']['id']}}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{igw_facts['gateway_id']}}"
+    region: "{{ region }}"
+    state: "present"
+  register: route_facts
+
+
+- name: print route details
+  debug:
+    var: "route_facts"
 
 # - name: Provision gateway [access to internet]
 #   ec2:
