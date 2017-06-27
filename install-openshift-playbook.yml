@@ -8,6 +8,9 @@
     - vars/aws-credentials
     - vars/aws-config.yml
 
+    vars:
+      state: 'present'
+
   environment:
     AWS_ACCESS_KEY_ID: "{{ ec2_access_key }}"
     AWS_SECRET_ACCESS_KEY: "{{ ec2_secret_key }}"
@@ -16,7 +19,7 @@
   - aws-setup-vpc
 
   post_tasks:
-   - name: test
+   - name: Confirmation message
      debug:
-      msg: ' {{ region }}'
+      msg: 'Finished'
 

@@ -8,7 +8,7 @@
       Name: "{{namespace}}-vpc"
       mits4u: "{{namespace}}"
     region: "{{ region }}"
-    state: "present"
+    state: "{{ state }}"
   register: vpc_facts
 
 - name: print VPC ID
@@ -19,7 +19,7 @@
   ec2_vpc_igw:
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     region: "{{ region }}"
-    state: "present"
+    state: "{{ state }}"
   register: igw_facts
 
 - name: print internet gateway ID
@@ -28,14 +28,14 @@
 
 - name: Provision subnet
   ec2_vpc_subnet:
-    state: present
+    state: {{ state }}
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     cidr: "{{subnet_cidr}}"
     tags:
       Name: "{{namespace}}-subnet"
       mits4u: "{{namespace}}"
     region: "{{ region }}"
-    state: "present"
+    state: "{{ state }}"
   register: subnet_facts
 
 - name: print subnet details
@@ -54,9 +54,9 @@
       - dest: 0.0.0.0/0
         gateway_id: "{{igw_facts['gateway_id']}}"
     region: "{{ region }}"
-    state: "present"
+    state: "{{ state }}"
   register: route_facts
 
 - name: print route details
   debug:
-    msg: "Create route eith ID: {{route_facts['route_table']['id']}}"
+    msg: "Create route with ID: {{route_facts['route_table']['id']}}"
