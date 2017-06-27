@@ -8,14 +8,9 @@
     - vars/aws-credentials
     - vars/aws-config.yml
 
-  pre_tasks:
-   - name: set openshift credentials
-     environment:
-      AWS_ACCESS_KEY_ID: "{{ ec2_access_key }}"
-      AWS_SECRET_ACCESS_KEY: "{{ ec2_secret_key }}"
-
   environment:
-    http_proxy: http://proxy.example.com:8080
+    AWS_ACCESS_KEY_ID: "{{ ec2_access_key }}"
+    AWS_SECRET_ACCESS_KEY: "{{ ec2_secret_key }}"
 
   roles:
   - aws-setup-vpc
