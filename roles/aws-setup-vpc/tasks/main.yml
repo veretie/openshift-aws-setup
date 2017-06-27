@@ -5,11 +5,12 @@
     ec2_access_key: "{{ ec2_access_key }}"
     ec2_secret_key: "{{ ec2_secret_key }}"
     name: "{{namespace}}-vpc"
-    state: "present"
     cidr_block: "{{ vpc_cidr }}"
     tags:
+      Name: "{{namespace}}-vpc"
       mits4u: "{{namespace}}-vpc"
     region: "{{ region }}"
+    state: "present"
   register: vpc_facts
 
 - name: print VPC ID
@@ -21,14 +22,27 @@
     ec2_access_key: "{{ ec2_access_key }}"
     ec2_secret_key: "{{ ec2_secret_key }}"
     vpc_id: "{{vpc_facts['vpc']['id']}}"
-    region: "{{ region }}" 
+    region: "{{ region }}"
+    state: "present"
   register: igw_facts
 
 - name: print internet gateway ID
   debug:
     msg: "Created internet gateway with ID: {{igw_facts['gateway_id']}}"
 
-
+- name: Provision subnet
+  ec2_vpc_subnet:
+    ec2_access_key: "{{ ec2_access_key }}"
+    ec2_secret_key: "{{ ec2_secret_key }}"
+    state: present
+    vpc_id: "{{vpc_facts['vpc']['id']}}"
+    cidr: "{{subnet_cidr}}"
+    tags:
+      Name: "{{namespace}}-subnet"
+      mits4u: "{{namespace}}-subnet"
+    region: "{{ region }}"
+    state: "present"
+  register: subnet
 
 
 # - name: Provision gateway [access to internet]
