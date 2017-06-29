@@ -1,0 +1,17 @@
+---
+#This security group allows intra-node communication on all ports with all protocols.
+- name: create openshift-vpc
+  ec2_group:
+    name: "openshift-vpc"
+    description: "Default security group that allows all instances in the VPC to talk to each other over any port and protocol."
+    vpc_id: "{{vpc_facts['vpc']['id']}}"
+    region: "{{region}}"
+    rules:
+      - proto: "-1"
+        from_port: "0"
+        to_port: "0"
+    rules_egress:
+      - proto: "-1"
+        from_port: "0"
+        to_port: "0"
+

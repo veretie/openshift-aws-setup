@@ -16,7 +16,8 @@
     AWS_SECRET_ACCESS_KEY: "{{ ec2_secret_key }}"
 
   roles:
-  - aws-setup-vpc
+  - setup-vpc
+  - setup-security-groups
 
   post_tasks:
    - name: Confirmation message
