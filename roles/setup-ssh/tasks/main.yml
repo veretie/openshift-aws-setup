@@ -1,0 +1,5 @@
+---
+
+- name: Generating RSA key for root
+  user: name=ec2-user generate_ssh_key=yes
+  delegate_to: "{{ec2_master['tagged_instances'][0]['public_ip']}}"

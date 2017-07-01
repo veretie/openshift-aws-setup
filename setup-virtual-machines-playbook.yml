@@ -20,6 +20,7 @@
   - setup-security-groups
   - setup-virtual-machines
   - setup-dns
+  - setup-ssh
 
   post_tasks:
    - name: Confirmation message
