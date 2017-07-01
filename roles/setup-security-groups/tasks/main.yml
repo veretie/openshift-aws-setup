@@ -7,11 +7,14 @@
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     region: "{{region}}"
     rules:
-      - proto: "ALL"
-        from_port: "ALL"
-        to_port: "ALL"
+      - proto: "-1"
+        from_port: "0"
+        to_port: "0"
+        group_name: "openshift-vpc"
     rules_egress:
-      - proto: "ALL"
-        from_port: "ALL"
-        to_port: "ALL"
+      - proto: "-1"
+        from_port: "0"
+        to_port: "0"
+        group_id: "openshift-vpc"
 
+ 
