@@ -17,7 +17,7 @@
       - proto: "-1"
         from_port: "0"
         to_port: "0"
-        group_id: "openshift-vpc"
+        group_name: "openshift-vpc"
 
 #  This security group allows public ingress to the instances for HTTP, HTTPS and common HTTP/S proxy ports.
 - name: create openshift-public-ingress
@@ -48,7 +48,8 @@
         from_port: "8443"
         to_port: "8443"
         cidr_ip: "0.0.0.0/0"
-
+    rules_egress: []    
+ 
 #  This security group allows public ingress to the instances for HTTP, HTTPS and common HTTP/S proxy ports.
 - name: create openshift-public-egress
   ec2_group:
@@ -82,3 +83,5 @@
         from_port: "22"
         to_port: "22"
         cidr_ip: "0.0.0.0/0"
+    rules_egress: []    
+ 
