@@ -1,0 +1,33 @@
+---
+- route53:
+    zone: "openshift.aws"
+    record: "master"
+    type: A
+    ttl: 300
+    value: "{{ec2_master['tagged_instances'][0]['id']}}"
+    wait: yes
+    state: "{{state}}"
+    vpc_id: "{{vpc_facts['vpc']['id']}}"
+    region: "{{region}}"
+
+- route53:
+    zone: "openshift.aws"
+    record: "node1"
+    type: A
+    ttl: 300
+    value: "{{node1['tagged_instances'][0]['id']}}"
+    wait: yes
+    state: "{{state}}"
+    vpc_id: "{{vpc_facts['vpc']['id']}}"
+    region: "{{region}}"
+
+- route53:
+    zone: "openshift.aws"
+    record: "node2"
+    type: A
+    ttl: 300
+    value: "{{node2['tagged_instances'][0]['id']}}"
+    wait: yes
+    state: "{{state}}"
+    vpc_id: "{{vpc_facts['vpc']['id']}}"
+    region: "{{region}}"

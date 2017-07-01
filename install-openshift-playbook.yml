@@ -19,6 +19,7 @@
   - setup-vpc
   - setup-security-groups
   - setup-virtual-machines
+  - setup-dns
 
   post_tasks:
    - name: Confirmation message
