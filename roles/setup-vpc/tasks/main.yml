@@ -11,20 +11,12 @@
     state: "{{ state }}"
   register: vpc_facts
 
-- name: print VPC ID
-  debug:
-    msg: "Created VPC with ID: {{vpc_facts['vpc']['id']}}"
-
 - name: Provision internet gateway
   ec2_vpc_igw:
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     region: "{{ region }}"
     state: "{{ state }}"
   register: igw_facts
-
-- name: print internet gateway ID
-  debug:
-    msg: "Created internet gateway with ID: {{igw_facts['gateway_id']}}"
 
 - name: Provision subnet
   ec2_vpc_subnet:
@@ -36,10 +28,6 @@
     region: "{{ region }}"
     state: "{{ state }}"
   register: subnet_facts
-
-- name: print subnet details
-  debug:
-    msg: "Created subnet with ID: {{subnet_facts['subnet']['id']}}"
 
 - name: Set up public subnet route table
   ec2_vpc_route_table:
@@ -55,7 +43,3 @@
     region: "{{ region }}"
     state: "{{ state }}"
   register: route_facts
-
-- name: print route details
-  debug:
-    msg: "Create route with ID: {{route_facts['route_table']['id']}}"

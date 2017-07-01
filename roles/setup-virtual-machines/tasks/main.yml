@@ -38,10 +38,6 @@
     exact_count: 1
   register: ec2_master
 
-- name: dd
-  debug:
-   msg: "{{ec2_master['tagged_instances'][0]['id']}}"
- 
 - name: allocate a new elastic IP and associate it with an instance
   ec2_eip:
    device_id: "{{ec2_master['tagged_instances'][0]['id']}}"
