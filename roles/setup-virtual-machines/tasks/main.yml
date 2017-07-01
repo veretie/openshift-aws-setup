@@ -1,0 +1,25 @@
+---
+
+-name: Provision ssh public key for access
+  ec2_key:
+    name: "openshift"
+    key_material: "{{public-key}}"
+    state: present
+
+- name: Provision master
+ ec2:
+    instance_type: "{{amisize}}"
+    image: "{{amiid}}"
+    region: "{{region}}"
+    wait: true
+    exact_count: 1
+    key_name: "openshift"
+    vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
+    group: ['openshift-vpc', 'openshift-public-ingress', 'openshift-public-egress', 'openshift-ssh']
+    volumes:
+      - volume_size: "{{volume-size}}"
+    instance_tags:
+      Name: "{{namespace}}-master"
+      mits4u: "{{namespace}}"
+  register: ec2-master
+
