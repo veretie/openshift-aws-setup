@@ -88,3 +88,6 @@
     exact_count: 1
     assign_public_ip: yes
   register: ec2_node2
+
+  environment:
+    openshift_master_ip: "{{ master_elastic_ip['public_ip'] }}"

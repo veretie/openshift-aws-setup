@@ -2,12 +2,12 @@
 
 - name: Generating master key for ec2-user
   user: "name=ec2-user generate_ssh_key=yes"
-  delegate_to: "{{ec2_master['tagged_instances'][0]['public_ip']}}"
+  delegate_to: "{{master_elastic_ip['public_ip']}}"
   remote_user: "ec2-user"
 
 - name: register master pub key
   shell: "cat ~/.ssh/id_rsa.pub"
-  delegate_to: "{{ec2_master['tagged_instances'][0]['public_ip']}}"
+  delegate_to: "{{master_elastic_ip['public_ip']}}"
   remote_user: "ec2-user"
   register: "ec2_rsa_pub"
 
