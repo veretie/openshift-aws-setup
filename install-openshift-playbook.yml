@@ -18,6 +18,7 @@
   roles:
   - setup-vpc
   - setup-security-groups
+  - setup-virtual-machines
 
   post_tasks:
    - name: Confirmation message
