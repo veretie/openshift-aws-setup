@@ -1,25 +1,44 @@
 ---
 
--name: Provision ssh public key for access
+- ec2_ami_find:
+     name: "RHEL-7.2*"
+     owner: 309956199498
+     architecture: "x86_64"
+     virtualization_type: "hvm"
+     sort: name
+     sort_order: descending
+     sort_end: 1
+     region: "{{region}}"
+  register: "ami_find"
+
+- name: Provision ssh public key for access
   ec2_key:
     name: "openshift"
-    key_material: "{{public-key}}"
-    state: present
+    key_material: "{{public_key}}"
+    region: "{{region}}"
+    state: "{{state}}"
+
+- name: dd
+  debug:
+   msg: "{{ami_find['results'][0]}}"
+   
+
 
 - name: Provision master
- ec2:
+  ec2:
     instance_type: "{{amisize}}"
-    image: "{{amiid}}"
+    image:  "{{ami_find['results'][0]['ami_id']}}"
     region: "{{region}}"
     wait: true
-    exact_count: 1
     key_name: "openshift"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
     group: ['openshift-vpc', 'openshift-public-ingress', 'openshift-public-egress', 'openshift-ssh']
     volumes:
-      - volume_size: "{{volume-size}}"
-    instance_tags:
+      - device_name: "{{ami_find['results'][0]['root_device_name']}}" 
+        volume_size: "{{volume_size}}"
+    count_tag:
       Name: "{{namespace}}-master"
       mits4u: "{{namespace}}"
+    exact_count: 1
   register: ec2-master
 

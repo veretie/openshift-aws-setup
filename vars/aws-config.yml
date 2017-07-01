@@ -4,5 +4,5 @@
   vpc_cidr: "10.0.0.0/16"
   subnet_cidr: "10.0.1.0/24"
   namespace: "openshift"
-  volume-size: 50
-  public-key: "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEA3aH6eLnYKfOud2Fd0gTCRCVTVjXtZ99DDJ6CKFjATpMGCdTM9S9rU010IGBA6s4vuvO/CpHQtTVfqNlhQvF/X5Obv8YKr+3nxLDOGS386nlygY4jVOeby+4y9xRxyXrM7x1XRc8bji/YiucjUHjeApXJV9at1JkjgjwE0r8w52k1bDZNZpTyNRm48taY0+8q97PFQN271upef+MbD2FX38LS+RN0IpkOF8qoTKMR8M4Y8m64YMs4pPV3joy58V1Hs9hUaLJazo4IN4UObjQ/VA6PP5iPqw9yjc3KrRpNOAh8cmm/An8PA7dAYc2LxxE1/t9UtfEmvmHhlmUgjB7qNw== rsa-key-edvinas"
+  volume_size: 50
+  public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEA3aH6eLnYKfOud2Fd0gTCRCVTVjXtZ99DDJ6CKFjATpMGCdTM9S9rU010IGBA6s4vuvO/CpHQtTVfqNlhQvF/X5Obv8YKr+3nxLDOGS386nlygY4jVOeby+4y9xRxyXrM7x1XRc8bji/YiucjUHjeApXJV9at1JkjgjwE0r8w52k1bDZNZpTyNRm48taY0+8q97PFQN271upef+MbD2FX38LS+RN0IpkOF8qoTKMR8M4Y8m64YMs4pPV3joy58V1Hs9hUaLJazo4IN4UObjQ/VA6PP5iPqw9yjc3KrRpNOAh8cmm/An8PA7dAYc2LxxE1/t9UtfEmvmHhlmUgjB7qNw== rsa-key-edvinas"
