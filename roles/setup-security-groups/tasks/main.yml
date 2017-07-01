@@ -7,11 +7,11 @@
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     region: "{{region}}"
     rules:
-      - proto: "-1"
-        from_port: "0"
-        to_port: "0"
+      - proto: "ALL"
+        from_port: "ALL"
+        to_port: "ALL"
     rules_egress:
-      - proto: "-1"
-        from_port: "0"
-        to_port: "0"
+      - proto: "ALL"
+        from_port: "ALL"
+        to_port: "ALL"
 
