@@ -62,6 +62,7 @@
       Name: "node1-{{namespace}}"
       mits4u: "{{namespace}}"
     exact_count: 1
+    assign_public_ip: yes
   register: ec2_node1
 
 - name: Provision node2
@@ -82,4 +83,5 @@
       Name: "node2-{{namespace}}"
       mits4u: "{{namespace}}"
     exact_count: 1
+    assign_public_ip: yes
   register: ec2_node2
