@@ -3,7 +3,7 @@
 #This security group allows intra-node communication on all ports with all protocols.
 - name: create openshift-vpc
   ec2_group:
-    name: "openshift-vpc"
+    name: "{{namespace}}-vpc"
     description: "Default security group that allows all instances in the VPC to talk to each other over any port and protocol."
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     region: "{{region}}"
@@ -12,17 +12,17 @@
       - proto: "-1"
         from_port: "0"
         to_port: "0"
-        group_name: "openshift-vpc"
+        group_name: "{{namespace}}-vpc"
     rules_egress:
       - proto: "-1"
         from_port: "0"
         to_port: "0"
-        group_name: "openshift-vpc"
+        group_name: "{{namespace}}-vpc"
 
 #  This security group allows public ingress to the instances for HTTP, HTTPS and common HTTP/S proxy ports.
 - name: create openshift-public-ingress
   ec2_group:
-    name: "openshift-public-ingress"
+    name: "{{namespace}}-public-ingress"
     description: "Security group that allows public ingress to instances, HTTP, HTTPS and more."
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     region: "{{region}}"
@@ -53,7 +53,7 @@
 #  This security group allows public ingress to the instances for HTTP, HTTPS and common HTTP/S proxy ports.
 - name: create openshift-public-egress
   ec2_group:
-    name: "openshift-public-egress"
+    name: "{{namespace}}-public-egress"
     description: "This security group allows public egress from the instances for HTTP and HTTPS, which is needed for yum updates, git access etc etc."
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     region: "{{region}}"
@@ -73,7 +73,7 @@
 # Security group which allows SSH access to a host. Used for the bastion.
 - name: create openshift-ssh
   ec2_group:
-    name: "openshift-ssh"
+    name: "{{namespace}}-ssh"
     description: "Default security group that allows all instances in the VPC to talk to each other over any port and protocol."
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     region: "{{region}}"

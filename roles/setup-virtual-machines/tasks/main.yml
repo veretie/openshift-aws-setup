@@ -2,7 +2,7 @@
 
 - ec2_ami_find:
      name: "RHEL-7.2*"
-     owner: 309956199498
+     owner: "{{redhat_id}}"
      architecture: "x86_64"
      virtualization_type: "hvm"
      sort: name
@@ -13,7 +13,7 @@
 
 - name: Provision ssh public key for access
   ec2_key:
-    name: "openshift"
+    name: "{{namespace}}"
     key_material: "{{public_key}}"
     region: "{{region}}"
     state: "{{state}}"
@@ -24,12 +24,13 @@
     image:  "{{ami_find['results'][0]['ami_id']}}"
     region: "{{region}}"
     wait: true
-    key_name: "openshift"
+    key_name: "{{namespace}}"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
-    group: ['openshift-vpc', 'openshift-public-ingress', 'openshift-public-egress', 'openshift-ssh']
+    group: ['{{namespace}}-vpc', '{{namespace}}-public-ingress', '{{namespace}}-public-egress', '{{namespace}}-ssh']
     volumes:
       - device_name: "{{ami_find['results'][0]['root_device_name']}}" 
         volume_size: "{{volume_size}}"
+        delete_on_termination: true
     count_tag:
       Name: "master-{{namespace}}"
     instance_tags:
@@ -50,12 +51,13 @@
     image:  "{{ami_find['results'][0]['ami_id']}}"
     region: "{{region}}"
     wait: true
-    key_name: "openshift"
+    key_name: "{{namespace}}"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
-    group: ['openshift-vpc', 'openshift-public-ingress', 'openshift-public-egress', 'openshift-ssh']
+    group: ['{{namespace}}-vpc', '{{namespace}}-public-ingress', '{{namespace}}-public-egress', '{{namespace}}-ssh']
     volumes:
       - device_name: "{{ami_find['results'][0]['root_device_name']}}"
         volume_size: "{{volume_size}}"
+        delete_on_termination: true
     count_tag:
       Name: "node1-{{namespace}}"
     instance_tags:
@@ -71,12 +73,13 @@
     image:  "{{ami_find['results'][0]['ami_id']}}"
     region: "{{region}}"
     wait: true
-    key_name: "openshift"
+    key_name: "{{namespace}}"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
-    group: ['openshift-vpc', 'openshift-public-ingress', 'openshift-public-egress', 'openshift-ssh']
+    group: ['{{namespace}}-vpc', '{{namespace}}-public-ingress', '{{namespace}}-public-egress', '{{namespace}}-ssh']
     volumes:
       - device_name: "{{ami_find['results'][0]['root_device_name']}}"
         volume_size: "{{volume_size}}"
+        delete_on_termination: true
     count_tag:
       Name: "node2-{{namespace}}"
     instance_tags:
