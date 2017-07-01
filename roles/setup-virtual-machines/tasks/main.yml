@@ -42,3 +42,44 @@
   ec2_eip:
    device_id: "{{ec2_master['tagged_instances'][0]['id']}}"
    region: "{{region}}"
+  register: master_elastic_ip
+
+- name: Provision node1
+  ec2:
+    instance_type: "{{amisize}}"
+    image:  "{{ami_find['results'][0]['ami_id']}}"
+    region: "{{region}}"
+    wait: true
+    key_name: "openshift"
+    vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
+    group: ['openshift-vpc', 'openshift-public-ingress', 'openshift-public-egress', 'openshift-ssh']
+    volumes:
+      - device_name: "{{ami_find['results'][0]['root_device_name']}}"
+        volume_size: "{{volume_size}}"
+    count_tag:
+      Name: "node1-{{namespace}}"
+    instance_tags:
+      Name: "node1-{{namespace}}"
+      mits4u: "{{namespace}}"
+    exact_count: 1
+  register: ec2_node1
+
+- name: Provision node2
+  ec2:
+    instance_type: "{{amisize}}"
+    image:  "{{ami_find['results'][0]['ami_id']}}"
+    region: "{{region}}"
+    wait: true
+    key_name: "openshift"
+    vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
+    group: ['openshift-vpc', 'openshift-public-ingress', 'openshift-public-egress', 'openshift-ssh']
+    volumes:
+      - device_name: "{{ami_find['results'][0]['root_device_name']}}"
+        volume_size: "{{volume_size}}"
+    count_tag:
+      Name: "node2-{{namespace}}"
+    instance_tags:
+      Name: "node2-{{namespace}}"
+      mits4u: "{{namespace}}"
+    exact_count: 1
+  register: ec2_node2
