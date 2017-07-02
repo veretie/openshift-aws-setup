@@ -1,5 +1,16 @@
 ---
 
+- bastion_ami_find:
+     name: "amzn-ami-hvm-*"
+     owner: "137112412989"
+     architecture: "x86_64"
+     virtualization_type: "hvm"
+     sort: name
+     sort_order: descending
+     sort_end: 1
+     region: "{{region}}"
+  register: "ami_find"
+
 - ec2_ami_find:
      name: "RHEL-7.2*"
      owner: "{{redhat_id}}"
@@ -92,7 +103,7 @@
 - name: Provision bastion
   ec2:
     instance_type: "{{bastion_amisize}}"
-    image:  "{{ami_find['results'][0]['ami_id']}}"
+    image:  "{{bastion_ami_find['results'][0]['ami_id']}}"
     region: "{{region}}"
     wait: true
     key_name: "{{namespace}}"
