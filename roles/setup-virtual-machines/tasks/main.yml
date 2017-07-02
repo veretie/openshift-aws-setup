@@ -1,6 +1,6 @@
 ---
 
-- bastion_ami_find:
+- ec2_ami_find:
      name: "amzn-ami-hvm-*"
      owner: "137112412989"
      architecture: "x86_64"
@@ -9,7 +9,7 @@
      sort_order: descending
      sort_end: 1
      region: "{{region}}"
-  register: "ami_find"
+  register: "bastion_ami_find"
 
 - ec2_ami_find:
      name: "RHEL-7.2*"
