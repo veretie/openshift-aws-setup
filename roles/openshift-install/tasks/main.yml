@@ -1,0 +1,24 @@
+---
+
+- name: copy inventory for openshift istallation
+  template:
+    src: "../files/openshift_inventory.cfg"
+    dest: "~/openshift_inventory.cfg"
+    owner: "ec2-user"
+    group: "root"
+    mode: "0775"
+  delegate_to: "{{bastion_public_ip}}"
+  remote_user: "ec2-user"
+
+- name: checkout openshift ansible repo on bastion
+  git:
+    repo: "https://github.com/openshift/openshift-ansible"
+    dest: "~"
+    refspec: "release-1.4"
+  delegate_to: "{{bastion_public_ip}}"
+  remote_user: "ec2-user"
+
+- name: install ansible from bastion
+  shell: "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ~/openshift_inventory.cfg ~/openshift-ansible/playbooks/byo/config.yml"
+  delegate_to: "{{bastion_public_ip}}"
+  remote_user: "ec2-user"

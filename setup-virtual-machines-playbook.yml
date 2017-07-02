@@ -14,6 +14,7 @@
   environment:
     AWS_ACCESS_KEY_ID: "{{ ec2_access_key }}"
     AWS_SECRET_ACCESS_KEY: "{{ ec2_secret_key }}"
+    ANSIBLE_HOST_KEY_CHECKING: "False"
 
   roles:
   - setup-vpc
@@ -21,6 +22,8 @@
   - setup-virtual-machines
   - setup-dns
   - setup-ssh
+  - openshift-pre-reqs
+  - openshift-install
 
   post_tasks:
    - name: Confirmation message

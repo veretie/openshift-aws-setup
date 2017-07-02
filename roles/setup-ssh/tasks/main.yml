@@ -1,5 +1,6 @@
 ---
 
+# user running on host must be able to ssh ec2-user@master_public_ip
 - name: Generating master key for ec2-user
   user: "name=ec2-user generate_ssh_key=yes"
   delegate_to: "{{master_public_ip}}"
