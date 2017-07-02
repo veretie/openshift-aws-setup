@@ -19,7 +19,7 @@
   roles:
 #  - setup-vpc
 #  - setup-security-groups
-#  - setup-virtual-machines
+  - setup-virtual-machines
 #  - setup-dns
   - setup-ssh
 #  - openshift-pre-reqs
