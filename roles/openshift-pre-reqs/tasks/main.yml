@@ -4,7 +4,7 @@
 - name: enable repos for docker
   shell: 'yum-config-manager --enable rhui-REGION-rhel-server-extras'
   delegate_to: "{{item}}"
-  remote_user: "ec2-user"
+  remote_user: "{{amazon_user}}"
   become: true
   register: rs
   failed_when: "'Repository epel is listed more than once' in rs.stderr"
@@ -18,7 +18,7 @@
     name: "{{item}}"
     state: "present"
   delegate_to: "{{bastion_public_ip}}"
-  remote_user: "ec2-user"
+  remote_user: "{{amazon_user}}"
   become: true
   with_items:
     - "git"
@@ -34,7 +34,7 @@
     name: ansible
     version: 2.2.0.0
   delegate_to: "{{bastion_public_ip}}"
-  remote_user: "ec2-user"
+  remote_user: "{{amazon_user}}"
   become: true
 
 - name: install docker on master and nodes
@@ -42,7 +42,7 @@
     name: "docker"
     state: "present"
   delegate_to: "{{item}}"
-  remote_user: "ec2-user"
+  remote_user: "{{amazon_user}}"
   become: true
   with_items: 
    - "{{master_public_ip}}"
@@ -55,7 +55,7 @@
      enabled: yes
      state: started
   delegate_to: "{{item}}"
-  remote_user: "ec2-user"
+  remote_user: "{{amazon_user}}"
   become: true
   with_items: 
    - "{{master_public_ip}}"

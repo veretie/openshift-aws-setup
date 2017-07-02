@@ -11,24 +11,35 @@
   template:
     src: "../files/openshift_inventory.cfg"
     dest: "~/openshift_inventory.cfg"
-    owner: "ec2-user"
+    owner: "{{amazon_user}}"
     group: "root"
     mode: "0775"
   delegate_to: "{{bastion_public_ip}}"
-  remote_user: "ec2-user"
+  remote_user: "{{amazon_user}}"
   become: true
 
 - name: checkout openshift ansible repo on bastion
   git:
     repo: "https://github.com/openshift/openshift-ansible"
-    dest: "~ec2-user/openshift-ansible"
-    refspec: "release-1.4"
+    dest: "~{{amazon_user}}/openshift-ansible"
+    refspec: "{{openshift_branch}}"
   delegate_to: "{{bastion_public_ip}}"
-  remote_user: "ec2-user"
+  remote_user: "{{amazon_user}}"
   become: true
 
-- name: install ansible from bastion
-  shell: "ANSIBLE_HOST_KEY_CHECKING=False /usr/local/bin/ansible-playbook -i ~ec2-user/openshift_inventory.cfg ~ec2-user/openshift-ansible/playbooks/byo/config.yml"
+- name: copy inventory for openshift istallation
+  template:
+    src: "../files/install-openshift.sh"
+    dest: "~/install-openshift.sh"
+    owner: "{{amazon_user}}"
+    group: "root"
+    mode: "0775"
   delegate_to: "{{bastion_public_ip}}"
-  remote_user: "ec2-user"
+  remote_user: "{{amazon_user}}"
+  become: true
+
+- name: run openshift installation script
+  shell: '~{{amazon_user}}/install-openshift.sh'
+  delegate_to: "{{bastion_public_ip}}"
+  remote_user: "{{amazon_user}}"
   become: true

@@ -2,20 +2,20 @@
 
 # access for master
 - name: Generating master key for ec2-user
-  user: "name=ec2-user generate_ssh_key=yes"
+  user: "name={{amazon_user}} generate_ssh_key=yes"
   delegate_to: "{{master_public_ip}}"
-  remote_user: "ec2-user"
+  remote_user: "{{amazon_user}}"
 
 - name: register master pub key
   shell: "cat ~/.ssh/id_rsa.pub"
   delegate_to: "{{master_public_ip}}"
-  remote_user: "ec2-user"
+  remote_user: "{{amazon_user}}"
   register: "master_rsa_pub"
 
 - name: install master pub key on bastion and nodes
-  authorized_key: user="ec2-user" key="{{ master_rsa_pub.stdout }}"
+  authorized_key: user="{{amazon_user}}" key="{{ master_rsa_pub.stdout }}"
   delegate_to: "{{item}}"
-  remote_user: "ec2-user"
+  remote_user: "{{amazon_user}}"
   with_items:
    - "{{node1_public_ip}}"
    - "{{node2_public_ip}}"
@@ -23,20 +23,20 @@
 
 # access for bastion
 - name: Generating bastion key for ec2-user
-  user: "name=ec2-user generate_ssh_key=yes"
+  user: "name={{amazon_user}} generate_ssh_key=yes"
   delegate_to: "{{bastion_public_ip}}"
-  remote_user: "ec2-user"
+  remote_user: "{{amazon_user}}"
 
 - name: register bastion pub key
   shell: "cat ~/.ssh/id_rsa.pub"
   delegate_to: "{{bastion_public_ip}}"
-  remote_user: "ec2-user"
+  remote_user: "{{amazon_user}}"
   register: "bastion_rsa_pub"
 
 - name: install bastion pub key on master and nodes
-  authorized_key: user="ec2-user" key="{{ bastion_rsa_pub.stdout }}"
+  authorized_key: user="{{amazon_user}}" key="{{ bastion_rsa_pub.stdout }}"
   delegate_to: "{{item}}"
-  remote_user: "ec2-user"
+  remote_user: "{{amazon_user}}"
   with_items:
    - "{{node1_public_ip}}"
    - "{{node2_public_ip}}"
