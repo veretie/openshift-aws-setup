@@ -17,12 +17,12 @@
     ANSIBLE_HOST_KEY_CHECKING: "False"
 
   roles:
-#  - setup-vpc
-#  - setup-security-groups
+  - setup-vpc
+  - setup-security-groups
   - setup-virtual-machines
-#  - setup-dns
+  - setup-dns
   - setup-ssh
-#  - openshift-pre-reqs
+  - openshift-pre-reqs
   - openshift-install
 
   post_tasks:

@@ -1,11 +1,11 @@
 ---
 
-- name: register VMs facts
-  set_fact:
-   master_public_ip: "35.158.180.215"
-   node1_public_ip: "35.158.186.188"
-   node2_public_ip: "35.157.181.156"
-   bastion_public_ip: "52.57.68.100"
+#- name: register VMs facts
+#  set_fact:
+#   master_public_ip: "35.158.180.215"
+#   node1_public_ip: "35.158.186.188"
+#   node2_public_ip: "35.157.181.156"
+#   bastion_public_ip: "52.57.68.100"
 
 - name: copy inventory for openshift istallation
   template:
