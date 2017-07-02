@@ -5,8 +5,8 @@
      owner: "137112412989"
      architecture: "x86_64"
      virtualization_type: "hvm"
-     sort: name
-     sort_order: descending
+     sort: "creationDate"
+     sort_order: "descending"
      sort_end: 1
      region: "{{region}}"
   register: "bastion_ami_find"
@@ -16,8 +16,8 @@
      owner: "{{redhat_id}}"
      architecture: "x86_64"
      virtualization_type: "hvm"
-     sort: name
-     sort_order: descending
+     sort: "name"
+     sort_order: "descending"
      sort_end: 1
      region: "{{region}}"
   register: "ami_find"
