@@ -28,5 +28,5 @@
   post_tasks:
    - name: Confirmation message
      debug:
-      msg: 'Finished'
+      msg: 'Finished, public master IP: {{public_master_ip}}'
 
