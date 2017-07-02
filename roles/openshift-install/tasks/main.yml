@@ -10,7 +10,7 @@
 - name: copy inventory for openshift istallation
   template:
     src: "../files/openshift_inventory.cfg"
-    dest: "~/openshift_inventory.cfg"
+    dest: "~{{amazon_user}}/openshift_inventory.cfg"
     owner: "{{amazon_user}}"
     group: "root"
     mode: "0775"
@@ -30,7 +30,7 @@
 - name: copy inventory for openshift istallation
   template:
     src: "../files/install-openshift.sh"
-    dest: "~/install-openshift.sh"
+    dest: "~{{amazon_user}}/install-openshift.sh"
     owner: "{{amazon_user}}"
     group: "root"
     mode: "0775"
@@ -42,4 +42,3 @@
   shell: '~{{amazon_user}}/install-openshift.sh'
   delegate_to: "{{bastion_public_ip}}"
   remote_user: "{{amazon_user}}"
-  become: true
