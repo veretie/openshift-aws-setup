@@ -109,10 +109,6 @@
     key_name: "{{namespace}}"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
     group: ['{{namespace}}-vpc', '{{namespace}}-public-ingress', '{{namespace}}-public-egress', '{{namespace}}-ssh']
-    volumes:
-      - device_name: "{{ami_find['results'][0]['root_device_name']}}"
-        volume_size: "{{bastion_volume_size}}"
-        delete_on_termination: true
     count_tag:
       Name: "bastion-{{namespace}}"
     instance_tags:
