@@ -1,6 +1,6 @@
 ---
 
-# user running on host must be able to ssh ec2-user@master_public_ip
+# access for master
 - name: Generating master key for ec2-user
   user: "name=ec2-user generate_ssh_key=yes"
   delegate_to: "{{master_public_ip}}"
@@ -10,13 +10,34 @@
   shell: "cat ~/.ssh/id_rsa.pub"
   delegate_to: "{{master_public_ip}}"
   remote_user: "ec2-user"
-  register: "ec2_rsa_pub"
+  register: "master_rsa_pub"
 
 - name: install master pub key on bastion and nodes
-  authorized_key: user="ec2-user" key="{{ ec2_rsa_pub.stdout }}"
+  authorized_key: user="ec2-user" key="{{ master_rsa_pub.stdout }}"
   delegate_to: "{{item}}"
   remote_user: "ec2-user"
   with_items:
    - "{{node1_public_ip}}"
    - "{{node2_public_ip}}"
    - "{{bastion_public_ip}}"
+
+# access for bastion
+- name: Generating bastion key for ec2-user
+  user: "name=ec2-user generate_ssh_key=yes"
+  delegate_to: "{{bastion_public_ip}}"
+  remote_user: "ec2-user"
+
+- name: register bastion pub key
+  shell: "cat ~/.ssh/id_rsa.pub"
+  delegate_to: "{{bastion_public_ip}}"
+  remote_user: "ec2-user"
+  register: "bastion_rsa_pub"
+
+- name: install bastion pub key on master and nodes
+  authorized_key: user="ec2-user" key="{{ bastion_rsa_pub.stdout }}"
+  delegate_to: "{{item}}"
+  remote_user: "ec2-user"
+  with_items:
+   - "{{node1_public_ip}}"
+   - "{{node2_public_ip}}"
+   - "{{master_public_ip}}"
