@@ -89,5 +89,11 @@
     assign_public_ip: yes
   register: ec2_node2
 
-  environment:
-    openshift_master_ip: "{{ master_elastic_ip['public_ip'] }}"
+- name: register vms facts
+  set_fact:
+   master_private_ip: "{{ec2_master['tagged_instances'][0]['private_ip']}}"
+   master_public_ip: "{{master_elastic_ip['public_ip']}}"
+   node1_private_ip: "{{ec2_node1['tagged_instances'][0]['private_ip']}}"
+   node1_public_ip: "{{ec2_node1['tagged_instances'][0]['public_ip']}}"
+   node2_private_ip: "{{ec2_node2['tagged_instances'][0]['private_ip']}}"
+   node2_public_ip: "{{ec2_node2['tagged_instances'][0]['public_ip']}}"

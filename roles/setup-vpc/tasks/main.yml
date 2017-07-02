@@ -43,3 +43,7 @@
     region: "{{ region }}"
     state: "{{ state }}"
   register: route_facts
+
+- name: register vpc facts
+  set_fact:
+   vpc_id: "{{vpc_facts['vpc']['id']}}"

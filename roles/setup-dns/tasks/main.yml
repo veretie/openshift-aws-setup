@@ -4,7 +4,7 @@
   route53_zone:
      zone: "{{dns_zone}}"
      state: "{{state}}"
-     vpc_id: "{{vpc_facts['vpc']['id']}}"
+     vpc_id: "{{vpc_id}}"
      vpc_region: "{{region}}"
      comment: "Internal zone for Openshift"
   register: aws_zone 
@@ -16,9 +16,9 @@
     record: "master.{{dns_zone}}"
     type: A
     ttl: 300
-    value: "{{ec2_master['tagged_instances'][0]['private_ip']}}"
+    value: "{{master_private_ip}}"
     wait: yes
-    vpc_id: "{{vpc_facts['vpc']['id']}}"
+    vpc_id: "{{vpc_id}}"
     private_zone: true
     command: "create"
 
@@ -30,9 +30,9 @@
     record: "node1.{{dns_zone}}"
     type: A
     ttl: 300
-    value: "{{ec2_node1['tagged_instances'][0]['private_ip']}}"
+    value: "{{node1_private_ip}}"
     wait: yes
-    vpc_id: "{{vpc_facts['vpc']['id']}}"
+    vpc_id: "{{vpc_id}}"
     private_zone: true
     command: "create"
 
@@ -44,10 +44,9 @@
     record: "node2.{{dns_zone}}"
     type: A
     ttl: 300
-    value: "{{ec2_node2['tagged_instances'][0]['private_ip']}}"
+    value: "{{node2_private_ip}}"
     wait: yes
-    vpc_id: "{{vpc_facts['vpc']['id']}}"
+    vpc_id: "{{vpc_id}}"
     private_zone: true
     command: "create"
-
 

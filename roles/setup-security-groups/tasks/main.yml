@@ -5,7 +5,7 @@
   ec2_group:
     name: "{{namespace}}-vpc"
     description: "Default security group that allows all instances in the VPC to talk to each other over any port and protocol."
-    vpc_id: "{{vpc_facts['vpc']['id']}}"
+    vpc_id: "{{vpc_id}}"
     region: "{{region}}"
     state: "{{state}}"
     rules:
@@ -24,7 +24,7 @@
   ec2_group:
     name: "{{namespace}}-public-ingress"
     description: "Security group that allows public ingress to instances, HTTP, HTTPS and more."
-    vpc_id: "{{vpc_facts['vpc']['id']}}"
+    vpc_id: "{{vpc_id}}"
     region: "{{region}}"
     state: "{{state}}"
     rules:
@@ -55,7 +55,7 @@
   ec2_group:
     name: "{{namespace}}-public-egress"
     description: "This security group allows public egress from the instances for HTTP and HTTPS, which is needed for yum updates, git access etc etc."
-    vpc_id: "{{vpc_facts['vpc']['id']}}"
+    vpc_id: "{{vpc_id}}"
     region: "{{region}}"
     state: "{{state}}"
     rules_egress:
@@ -75,7 +75,7 @@
   ec2_group:
     name: "{{namespace}}-ssh"
     description: "Default security group that allows all instances in the VPC to talk to each other over any port and protocol."
-    vpc_id: "{{vpc_facts['vpc']['id']}}"
+    vpc_id: "{{vpc_id}}"
     region: "{{region}}"
     state: "{{state}}"
     rules:
