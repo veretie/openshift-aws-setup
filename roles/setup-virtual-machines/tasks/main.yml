@@ -89,7 +89,30 @@
     assign_public_ip: yes
   register: ec2_node2
 
-- name: register vms facts
+- name: Provision bastion
+  ec2:
+    instance_type: "{{bastion_amisize}}"
+    image:  "{{ami_find['results'][0]['ami_id']}}"
+    region: "{{region}}"
+    wait: true
+    key_name: "{{namespace}}"
+    vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
+    group: ['{{namespace}}-vpc', '{{namespace}}-public-ingress', '{{namespace}}-public-egress', '{{namespace}}-ssh']
+    volumes:
+      - device_name: "{{ami_find['results'][0]['root_device_name']}}"
+        volume_size: "{{bastion_volume_size}}"
+        delete_on_termination: true
+    count_tag:
+      Name: "bastion-{{namespace}}"
+    instance_tags:
+      Name: "bastion-{{namespace}}"
+      mits4u: "{{namespace}}"
+    exact_count: 1
+    assign_public_ip: yes
+  register: ec2_bastion
+
+
+- name: register VMs facts
   set_fact:
    master_private_ip: "{{ec2_master['tagged_instances'][0]['private_ip']}}"
    master_public_ip: "{{master_elastic_ip['public_ip']}}"
@@ -97,3 +120,6 @@
    node1_public_ip: "{{ec2_node1['tagged_instances'][0]['public_ip']}}"
    node2_private_ip: "{{ec2_node2['tagged_instances'][0]['private_ip']}}"
    node2_public_ip: "{{ec2_node2['tagged_instances'][0]['public_ip']}}"
+   bastion_private_ip: "{{ec2_bastion['tagged_instances'][0]['private_ip']}}"
+   bastion_public_ip: "{{ec2_bastion['tagged_instances'][0]['public_ip']}}"
+

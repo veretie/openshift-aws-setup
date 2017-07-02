@@ -11,10 +11,11 @@
   remote_user: "ec2-user"
   register: "ec2_rsa_pub"
 
-- name: install master pub key on nodes
+- name: install master pub key on bastion and nodes
   authorized_key: user="ec2-user" key="{{ ec2_rsa_pub.stdout }}"
   delegate_to: "{{item}}"
   remote_user: "ec2-user"
   with_items:
    - "{{node1_public_ip}}"
    - "{{node2_public_ip}}"
+   - "{{bastion_public_ip}}"
