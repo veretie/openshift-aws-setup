@@ -22,7 +22,7 @@
 #  - setup-virtual-machines
 #  - setup-dns
 #  - setup-ssh
-  - openshift-pre-reqs
+#  - openshift-pre-reqs
   - openshift-install
 
   post_tasks:

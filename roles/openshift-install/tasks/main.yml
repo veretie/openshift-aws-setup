@@ -1,5 +1,12 @@
 ---
 
+- name: register VMs facts
+  set_fact:
+   master_public_ip: "35.158.180.215"
+   node1_public_ip: "35.158.186.188"
+   node2_public_ip: "35.157.181.156"
+   bastion_public_ip: "52.57.68.100"
+
 - name: copy inventory for openshift istallation
   template:
     src: "../files/openshift_inventory.cfg"
@@ -9,16 +16,19 @@
     mode: "0775"
   delegate_to: "{{bastion_public_ip}}"
   remote_user: "ec2-user"
+  become: true
 
 - name: checkout openshift ansible repo on bastion
   git:
     repo: "https://github.com/openshift/openshift-ansible"
-    dest: "~"
+    dest: "~ec2-user/openshift-ansible"
     refspec: "release-1.4"
   delegate_to: "{{bastion_public_ip}}"
   remote_user: "ec2-user"
+  become: true
 
 - name: install ansible from bastion
-  shell: "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ~/openshift_inventory.cfg ~/openshift-ansible/playbooks/byo/config.yml"
+  shell: "ANSIBLE_HOST_KEY_CHECKING=False /usr/local/bin/ansible-playbook -i ~ec2-user/openshift_inventory.cfg ~ec2-user/openshift-ansible/playbooks/byo/config.yml"
   delegate_to: "{{bastion_public_ip}}"
   remote_user: "ec2-user"
+  become: true
