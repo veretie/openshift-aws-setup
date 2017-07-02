@@ -2,7 +2,7 @@
 
 - ec2_ami_find:
      name: "amzn-ami-hvm-*"
-     owner: "137112412989"
+     owner: "{{amazon_owner_id}}"
      architecture: "x86_64"
      virtualization_type: "hvm"
      sort: "creationDate"
@@ -13,10 +13,10 @@
 
 - ec2_ami_find:
      name: "RHEL-7.2*"
-     owner: "{{redhat_id}}"
+     owner: "{{redhat_owner_id}}"
      architecture: "x86_64"
      virtualization_type: "hvm"
-     sort: "name"
+     sort: "creationDate"
      sort_order: "descending"
      sort_end: 1
      region: "{{region}}"

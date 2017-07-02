@@ -10,6 +10,6 @@
   # ec2
   amisize: "t2.large"
   amiid: "ami-b9353fdd"
-  redhat_id: "309956199498"
+  redhat_owner_id: "309956199498"
+  amazon_owner_id: "137112412989"
   bastion_amisize: "t2.micro"
-  bastion_volume_size: 10
