@@ -11,5 +11,5 @@
   amisize: "t2.large"
   amiid: "ami-b9353fdd"
   redhat_id: "309956199498"
-  bastion_amisize_bastion: "t2.micro"
+  bastion_amisize: "t2.micro"
   bastion_volume_size: 10
