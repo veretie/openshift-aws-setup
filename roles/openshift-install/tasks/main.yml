@@ -31,7 +31,11 @@
   remote_user: "{{amazon_user}}"
   become: true
 
-#- name: run openshift installation script
-#  shell: '~{{amazon_user}}/install-openshift.sh'
-#  delegate_to: "{{bastion_public_ip}}"
-#  remote_user: "{{amazon_user}}"
+- name: provide details to check installation
+  debug:
+   msg: "Check file install-openshift.log in Bastion 'ssh ec2-user@{{bastion_public_ip}}' "
+
+- name: run openshift installation script
+  shell: './install-openshift.sh |& tee install-openshift.log'
+  delegate_to: "{{bastion_public_ip}}"
+  remote_user: "{{amazon_user}}"
