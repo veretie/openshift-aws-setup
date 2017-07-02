@@ -21,6 +21,7 @@
     vpc_id: "{{vpc_id}}"
     private_zone: true
     command: "create"
+    overwrite: yes
 
 - name: add master dns 
   route53:
@@ -34,7 +35,7 @@
     vpc_id: "{{vpc_id}}"
     private_zone: true
     command: "create"
-
+    overwrite: yes
 
 - name: add node1 dns 
   route53:
@@ -48,7 +49,7 @@
     vpc_id: "{{vpc_id}}"
     private_zone: true
     command: "create"
-
+    overwrite: yes
 
 - name: add node2 dns 
   route53:
@@ -62,4 +63,4 @@
     vpc_id: "{{vpc_id}}"
     private_zone: true
     command: "create"
-
+    overwrite: yes
