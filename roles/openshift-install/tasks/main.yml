@@ -11,7 +11,7 @@
   git:
     repo: "https://github.com/openshift/openshift-ansible"
     dest: "~{{amazon_user}}/openshift-ansible"
-    refspec: "{{openshift_branch}}"
+    version: "{{openshift_branch}}"
   delegate_to: "{{bastion_public_ip}}"
   remote_user: "{{amazon_user}}"
 
@@ -19,6 +19,7 @@
   template:
     src: "../files/install-openshift.sh"
     dest: "~{{amazon_user}}/install-openshift.sh"
+    mode: "0775"
   delegate_to: "{{bastion_public_ip}}"
   remote_user: "{{amazon_user}}"
 
