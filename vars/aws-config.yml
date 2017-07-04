@@ -14,3 +14,5 @@
   amazon_owner_id: "137112412989"
   bastion_amisize: "t2.micro"
   volume_size: 50
+  #DNS
+  public_dns_zone: "mits4u.co.uk"

@@ -64,3 +64,25 @@
     private_zone: true
     command: "create"
     overwrite: yes
+
+- name: add public dns
+  route53:
+    zone: "{{public_dns_zone}}"
+    record: "{{public_dns_zone}}"
+    type: A
+    ttl: 300
+    value: "{{master_public_ip}}"
+    wait: yes
+    command: "create"
+    overwrite: yes
+
+- name: add public wildcard dns
+  route53:
+    zone: "{{public_dns_zone}}"
+    record: "*.{{public_dns_zone}}"
+    type: A
+    ttl: 300
+    value: "{{master_public_ip}}"
+    wait: yes
+    command: "create"
+    overwrite: yes
