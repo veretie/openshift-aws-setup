@@ -5,6 +5,7 @@
 # Compiled classes
 /target
 
-#
+# pass
 vault_pass
+var/aws-credentials
 *.retry
