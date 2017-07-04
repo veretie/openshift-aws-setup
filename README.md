@@ -1,7 +1,5 @@
 # openshift-aws-setup
 
-## Pre-requisites
-Configure aws-credentials vault with ```ansible-vault edit group_vars/local/aws-credentials```
-
 ## Run
-Command ```ansible-playbook install-openshift-playbook.yml -i inventory/inventory.cfg --ask-vault-pass```
+Command ```./openshift-playbook-run.sh <AWS_ACCESS_KEY_ID> <AWS_SECRET_ACCESS_KEY>```
+
