@@ -7,5 +7,5 @@
 
 # pass
 vault_pass
-var/aws-credentials
+vars/aws-credentials
 *.retry
