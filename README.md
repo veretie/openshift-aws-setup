@@ -15,9 +15,15 @@ AWS related configuration can be customised by modifying ```vars/aws-config.yaml
 
 ## Run
 
-Execute command ```./openshift-playbook-run.sh <AWS_ACCESS_KEY_ID> <AWS_SECRET_ACCESS_KEY>```
+Command ```./openshift-playbook-run.sh <AWS_ACCESS_KEY_ID> <AWS_SECRET_ACCESS_KEY>``` will execute Ansible playbook
+with a set of roles which will provision AWS infrastructure and install Openshift 3.5 on top of that.
 
 ## Network topology
 
 ![Network Diagram](./docs/network-topology-openshift.jpg)
 
+## References
+
+ - https://www.codeproject.com/Articles/1168687/Get-up-and-running-with-OpenShift-on-AWS
+ - https://docs.openshift.org/latest/welcome/index.html
+ 
