@@ -22,5 +22,5 @@ Execute command ```./openshift-playbook-run.sh <AWS_ACCESS_KEY_ID> <AWS_SECRET_A
 
 ## Network topology
 
-![Network Diagram](./docs/openshift.jpg)
+![Network Diagram](./docs/network-topology.jpg)
 
