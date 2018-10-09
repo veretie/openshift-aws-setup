@@ -22,6 +22,9 @@ with a set of roles which will provision AWS infrastructure and install Openshif
 
 ![Network Diagram](./docs/network-topology-openshift.jpg)
 
+## Troubleshooting
+ - if openshift installation failed on last stage, ssh into bastion and check ```install-openshift.log```
+
 ## References
 
  - https://www.codeproject.com/Articles/1168687/Get-up-and-running-with-OpenShift-on-AWS

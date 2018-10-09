@@ -8,7 +8,7 @@
   become: true
   register: rs
   failed_when: "'Repository epel is listed more than once' in rs.stderr"
-  with_items: 
+  with_items:
    - "{{master_public_ip}}"
    - "{{node1_public_ip}}"
    - "{{node2_public_ip}}"
@@ -23,7 +23,7 @@
   with_items:
     - "git"
     - "@Development Tools"
-    - "python34-pip"
+    - "python36u-pip"
     - "openssl-devel"
     - "python-devel"
     - "gcc"
@@ -32,8 +32,8 @@
 - name: install ansible on bastion
   pip:
     name: ansible
-    version: 2.2.0.0
-  delegate_to: "{{bastion_public_ip}}"
+    version: 2.7.0
+  delegate_to: "18.185.116.253"
   remote_user: "{{amazon_user}}"
   become: true
 
@@ -44,7 +44,7 @@
   delegate_to: "{{item}}"
   remote_user: "{{amazon_user}}"
   become: true
-  with_items: 
+  with_items:
    - "{{master_public_ip}}"
    - "{{node1_public_ip}}"
    - "{{node2_public_ip}}"
@@ -57,7 +57,7 @@
   delegate_to: "{{item}}"
   remote_user: "{{amazon_user}}"
   become: true
-  with_items: 
+  with_items:
    - "{{master_public_ip}}"
    - "{{node1_public_ip}}"
    - "{{node2_public_ip}}"

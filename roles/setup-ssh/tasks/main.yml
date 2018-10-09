@@ -1,7 +1,7 @@
 ---
 
 # access for master
-- name: Generating master key for ec2-user
+- name: Generating key pair on master for logged in ec2-user
   user: "name={{amazon_user}} generate_ssh_key=yes"
   delegate_to: "{{master_public_ip}}"
   remote_user: "{{amazon_user}}"

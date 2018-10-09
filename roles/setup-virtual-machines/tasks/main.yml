@@ -1,26 +1,34 @@
 ---
 
-- ec2_ami_find:
-     name: "amzn-ami-hvm-*"
+- ec2_ami_facts:
      owner: "{{amazon_owner_id}}"
-     architecture: "x86_64"
-     virtualization_type: "hvm"
-     sort: "creationDate"
-     sort_order: "descending"
-     sort_end: 1
+     filters:
+       name: "amzn-ami-hvm-*"
+       architecture: "x86_64"
+       virtualization-type: "hvm"
      region: "{{region}}"
   register: "bastion_ami_find"
 
-- ec2_ami_find:
-     name: "RHEL-7.2*"
+- name: register bastion ami-id
+  set_fact:
+    bastion_ami: >
+      {{ bastion_ami_find.images | sort(attribute='creation_date') | last }}
+
+
+- ec2_ami_facts:
+
      owner: "{{redhat_owner_id}}"
-     architecture: "x86_64"
-     virtualization_type: "hvm"
-     sort: "creationDate"
-     sort_order: "descending"
-     sort_end: 1
+     filters:
+       name: "RHEL-7.2*"
+       architecture: "x86_64"
+       virtualization_type: "hvm"
      region: "{{region}}"
   register: "ami_find"
+
+- name: register bastion ami-id
+  set_fact:
+    ami: >
+      {{ ami_find.images | sort(attribute='creation_date') | last }}
 
 - name: Provision ssh public key for access
   ec2_key:
@@ -32,21 +40,21 @@
 - name: Provision master
   ec2:
     instance_type: "{{amisize}}"
-    image:  "{{ami_find['results'][0]['ami_id']}}"
+    image:  "{{ami['image_id']}}"
     region: "{{region}}"
     wait: true
     key_name: "{{namespace}}"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
     group: ['{{namespace}}-vpc', '{{namespace}}-public-ingress', '{{namespace}}-public-egress', '{{namespace}}-ssh']
     volumes:
-      - device_name: "{{ami_find['results'][0]['root_device_name']}}" 
+      - device_name: "{{ami['root_device_name']}}"
         volume_size: "{{volume_size}}"
         delete_on_termination: true
     count_tag:
       Name: "master-{{namespace}}"
     instance_tags:
       Name: "master-{{namespace}}"
-      mits4u: "{{namespace}}" 
+      mits4u: "{{namespace}}"
     exact_count: 1
   register: ec2_master
 
@@ -59,14 +67,14 @@
 - name: Provision node1
   ec2:
     instance_type: "{{amisize}}"
-    image:  "{{ami_find['results'][0]['ami_id']}}"
+    image:  "{{ami['image_id']}}"
     region: "{{region}}"
     wait: true
     key_name: "{{namespace}}"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
     group: ['{{namespace}}-vpc', '{{namespace}}-public-ingress', '{{namespace}}-public-egress', '{{namespace}}-ssh']
     volumes:
-      - device_name: "{{ami_find['results'][0]['root_device_name']}}"
+      - device_name: "{{ami['root_device_name']}}"
         volume_size: "{{volume_size}}"
         delete_on_termination: true
     count_tag:
@@ -81,14 +89,14 @@
 - name: Provision node2
   ec2:
     instance_type: "{{amisize}}"
-    image:  "{{ami_find['results'][0]['ami_id']}}"
+    image:  "{{ami['image_id']}}"
     region: "{{region}}"
     wait: true
     key_name: "{{namespace}}"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
     group: ['{{namespace}}-vpc', '{{namespace}}-public-ingress', '{{namespace}}-public-egress', '{{namespace}}-ssh']
     volumes:
-      - device_name: "{{ami_find['results'][0]['root_device_name']}}"
+      - device_name: "{{ami['root_device_name']}}"
         volume_size: "{{volume_size}}"
         delete_on_termination: true
     count_tag:
@@ -103,7 +111,7 @@
 - name: Provision bastion
   ec2:
     instance_type: "{{bastion_amisize}}"
-    image:  "{{bastion_ami_find['results'][0]['ami_id']}}"
+    image:  "{{bastion_ami['image_id']}}"
     region: "{{region}}"
     wait: true
     key_name: "{{namespace}}"

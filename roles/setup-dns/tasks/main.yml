@@ -11,7 +11,7 @@
 
 - name: add bastion dns
   route53:
-    hosted_zone_id: "{{aws_zone['set']['zone_id']}}"
+    hosted_zone_id: "{{aws_zone['zone_id']}}"
     zone: "{{dns_zone}}"
     record: "bastion.{{dns_zone}}"
     type: A
@@ -20,12 +20,12 @@
     wait: yes
     vpc_id: "{{vpc_id}}"
     private_zone: true
-    command: "create"
+    state: "create"
     overwrite: yes
 
 - name: add master dns 
   route53:
-    hosted_zone_id: "{{aws_zone['set']['zone_id']}}"
+    hosted_zone_id: "{{aws_zone['zone_id']}}"
     zone: "{{dns_zone}}"
     record: "master.{{dns_zone}}"
     type: A
@@ -34,12 +34,12 @@
     wait: yes
     vpc_id: "{{vpc_id}}"
     private_zone: true
-    command: "create"
+    state: "create"
     overwrite: yes
 
 - name: add node1 dns 
   route53:
-    hosted_zone_id: "{{aws_zone['set']['zone_id']}}"
+    hosted_zone_id: "{{aws_zone['zone_id']}}"
     zone: "{{dns_zone}}"
     record: "node1.{{dns_zone}}"
     type: A
@@ -48,12 +48,12 @@
     wait: yes
     vpc_id: "{{vpc_id}}"
     private_zone: true
-    command: "create"
+    state: "create"
     overwrite: yes
 
 - name: add node2 dns 
   route53:
-    hosted_zone_id: "{{aws_zone['set']['zone_id']}}"
+    hosted_zone_id: "{{aws_zone['zone_id']}}"
     zone: "{{dns_zone}}"
     record: "node2.{{dns_zone}}"
     type: A
@@ -62,7 +62,7 @@
     wait: yes
     vpc_id: "{{vpc_id}}"
     private_zone: true
-    command: "create"
+    state: "create"
     overwrite: yes
 
 - name: add public dns
@@ -73,7 +73,7 @@
     ttl: 300
     value: "{{master_public_ip}}"
     wait: yes
-    command: "create"
+    state: "create"
     overwrite: yes
 
 - name: add public wildcard dns
@@ -84,5 +84,5 @@
     ttl: 300
     value: "{{master_public_ip}}"
     wait: yes
-    command: "create"
+    state: "create"
     overwrite: yes
