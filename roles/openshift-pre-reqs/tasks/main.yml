@@ -23,7 +23,7 @@
   with_items:
     - "git"
     - "@Development Tools"
-    - "python36u-pip"
+#    - "python36u-pip"
     - "openssl-devel"
     - "python-devel"
     - "gcc"
@@ -33,7 +33,7 @@
   pip:
     name: ansible
     version: 2.7.0
-  delegate_to: "18.185.116.253"
+  delegate_to: "{{bastion_public_ip}}"
   remote_user: "{{amazon_user}}"
   become: true
 

@@ -20,6 +20,7 @@
   - openshift-install
 
   post_tasks:
+
    - name: Confirmation message
      debug:
       msg: 'Finished, public master IP: {{master_public_ip}}'

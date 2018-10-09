@@ -6,6 +6,7 @@
        name: "amzn-ami-hvm-*"
        architecture: "x86_64"
        virtualization-type: "hvm"
+       root-device-type: "ebs"
      region: "{{region}}"
   register: "bastion_ami_find"
 
@@ -14,14 +15,15 @@
     bastion_ami: >
       {{ bastion_ami_find.images | sort(attribute='creation_date') | last }}
 
+#- debug:
+#   msg: "{{ bastion_ami}} "
 
 - ec2_ami_facts:
 
      owner: "{{redhat_owner_id}}"
      filters:
-       name: "RHEL-7.2*"
+       name: "RHEL-7.5_HVM*"
        architecture: "x86_64"
-       virtualization_type: "hvm"
      region: "{{region}}"
   register: "ami_find"
 
