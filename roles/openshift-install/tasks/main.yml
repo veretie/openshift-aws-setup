@@ -30,6 +30,7 @@
     mode: "0775"
   delegate_to: "{{bastion_public_ip}}"
   remote_user: "{{amazon_user}}"
+  become: yes
 
 - name: provide details to check installation
   debug:
