@@ -6,10 +6,9 @@
   dns_zone: "ose.local"
   public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQm4fsCCfqKN0TMpbZsLL3Ldaumjdl88GbB9+z6jzoxDyCHhlC7D2PVjqJvBqlJ6DoZVXtTZDnuCNgsi9AMSjZU39fgVWH2KioO+vuTvilg33Rv+eus1tnajhdYip9HeYajPFMIy42e/lloehij5ljQsTiyKsl1MMfOfyNSEBKPQBTREEOBNjOISZGq7G+NQ57mybuSVgMLKo6kWVBuOY2R0R0X99VL1EY+15VUmFlU4KWFnF5O0qFQjRQarF/hZsZoBvreNoaUa7yoOxp0mQZH1uc1djjGr1QQeHUq5Gu+Z3E6e4Qtt2BjYxOPvdb9lzM+ekmiX0IJRQ0bfUQ4o2p Edvinas@ed"
   amazon_user: "ec2-user"
-  openshift_branch: "release-3.11"
+  openshift_branch: "release-3.10"
   # ec2
   amisize: "t2.large"
-  amiid: "ami-b9353fdd"
   redhat_owner_id: "309956199498"
   amazon_owner_id: "137112412989"
   bastion_amisize: "t2.micro"

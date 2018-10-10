@@ -23,6 +23,14 @@
   delegate_to: "{{bastion_public_ip}}"
   remote_user: "{{amazon_user}}"
 
+- name: set up yum repo for various deps
+  template:
+    src: "../files/openshift-310.repo"
+    dest: "/etc/yum.repos.d/openshift-310.repo"
+    mode: "0775"
+  delegate_to: "{{bastion_public_ip}}"
+  remote_user: "{{amazon_user}}"
+
 - name: provide details to check installation
   debug:
    msg: "Check file install-openshift.log in Bastion 'ssh ec2-user@{{bastion_public_ip}}' "

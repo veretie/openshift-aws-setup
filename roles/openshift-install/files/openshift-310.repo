@@ -1,0 +1,5 @@
+name=CentOS OpenShift Origin Testing buildlogs
+baseurl=https://buildlogs.centos.org/centos/7/paas/x86_64/openshift-origin310/
+enabled=1
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/openshift-ansible-CentOS-SIG-PaaS
